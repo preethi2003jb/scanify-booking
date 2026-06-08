@@ -344,6 +344,30 @@ def book_demo(booking: DemoBooking):
         conn = get_db()
         cur = conn.cursor()
 
+        # Check if slot already booked
+if booking.preferred_demo_date and booking.preferred_time_slot:
+
+    cur.execute(
+        """
+        SELECT COUNT(*)
+        FROM demo_bookings
+        WHERE preferred_demo_date = %s
+        AND preferred_time_slot = %s
+        """,
+        (
+            booking.preferred_demo_date,
+            booking.preferred_time_slot
+        )
+    )
+
+    exists = cur.fetchone()[0]
+
+    if exists > 0:
+        raise HTTPException(
+            status_code=422,
+            detail="Selected slot is already booked. Please choose another slot."
+        )
+
         cur.execute(
             """
             INSERT INTO demo_bookings

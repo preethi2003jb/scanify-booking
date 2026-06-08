@@ -172,84 +172,91 @@ def send_email_brevo(
 def send_internal_notification(
     booking: DemoBooking,
     booking_ref: str
-):    html = f"""
-    <html>
-    <body style="font-family:Arial,sans-serif;">
-        <h2>🚀 New Scanify AI Demo Booking</h2>
+):
 
-        <p><strong>Booking Reference:</strong> {booking_ref}</p>
+    html_content = f"""
+<html>
+<body>
+    <h2>New Scanify AI Demo Booking</h2>
 
-        <table border="1" cellpadding="8" cellspacing="0" width="100%">
-            <tr>
-                <td><strong>Full Name</strong></td>
-                <td>{booking.full_name}</td>
-            </tr>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <td><b>Booking Reference</b></td>
+            <td>{booking_ref}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Designation</strong></td>
-                <td>{booking.designation}</td>
-            </tr>
+        <tr>
+            <td><b>Full Name</b></td>
+            <td>{booking.full_name}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Company Name</strong></td>
-                <td>{booking.company_name}</td>
-            </tr>
+        <tr>
+            <td><b>Designation</b></td>
+            <td>{booking.designation}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Email</strong></td>
-                <td>{booking.corporate_email}</td>
-            </tr>
+        <tr>
+            <td><b>Company Name</b></td>
+            <td>{booking.company_name}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Mobile</strong></td>
-                <td>{booking.mobile_number}</td>
-            </tr>
+        <tr>
+            <td><b>Corporate Email</b></td>
+            <td>{booking.corporate_email}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Documents Required</strong></td>
-                <td>{", ".join(booking.documents_required)}</td>
-            </tr>
+        <tr>
+            <td><b>Mobile Number</b></td>
+            <td>{booking.mobile_number}</td>
+        </tr>
 
-            <tr>
-                <td><strong>ERP System</strong></td>
-                <td>{booking.erp_system}</td>
-            </tr>
+        <tr>
+            <td><b>Documents Required</b></td>
+            <td>{", ".join(booking.documents_required)}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Current Process</strong></td>
-                <td>{booking.current_process}</td>
-            </tr>
+        <tr>
+            <td><b>ERP System</b></td>
+            <td>{booking.erp_system}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Approval Workflow</strong></td>
-                <td>{booking.approval_workflow}</td>
-            </tr>
+        <tr>
+            <td><b>Current Process</b></td>
+            <td>{booking.current_process}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Monthly Volume</strong></td>
-                <td>{booking.document_volume}</td>
-            </tr>
+        <tr>
+            <td><b>Approval Workflow</b></td>
+            <td>{booking.approval_workflow}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Demo Date</strong></td>
-                <td>{booking.preferred_demo_date or "Not Selected"}</td>
-            </tr>
+        <tr>
+            <td><b>Monthly Volume</b></td>
+            <td>{booking.document_volume}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Time Slot</strong></td>
-                <td>{booking.preferred_time_slot or "Not Selected"}</td>
-            </tr>
+        <tr>
+            <td><b>Demo Date</b></td>
+            <td>{booking.preferred_demo_date}</td>
+        </tr>
 
-            <tr>
-                <td><strong>Submitted At</strong></td>
-                <td>{datetime.now().strftime("%d-%m-%Y %I:%M %p")}</td>
-            </tr>
-        </table>
+        <tr>
+            <td><b>Time Slot</b></td>
+            <td>{booking.preferred_time_slot}</td>
+        </tr>
 
-    </body>
-    </html>
-    """
-for email in INTERNAL_EMAILS:
+        <tr>
+            <td><b>Submitted Time</b></td>
+            <td>{datetime.now().strftime("%d-%m-%Y %I:%M %p")}</td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
+"""
+
+    for email in INTERNAL_EMAILS:
         send_email_brevo(
             email,
             "Sales Team",
@@ -269,59 +276,73 @@ def send_customer_acknowledgement(
     if not booking.corporate_email:
         return
 
-    html = f"""
-    <html>
-    <body style="font-family:Arial,sans-serif;">
+    html_content = f"""
+<html>
+<body>
 
-        <h2>Thank You for Choosing Scanify AI</h2>
+<h2>Demo Booking Confirmed</h2>
 
-        <p>Dear {booking.full_name},</p>
+<p>Dear {booking.full_name},</p>
 
-        <p>
-            Thank you for submitting your Scanify AI requirements.
-            Our team has received your information successfully.
-        </p>
+<p>Thank you for booking a Scanify AI demo.</p>
 
-        <p>
-            <strong>Booking Reference:</strong>
-            {booking_ref}
-        </p>
+<table border="1" cellpadding="8" cellspacing="0">
 
-        <h3>Your Submission</h3>
+<tr>
+<td><b>Booking Reference</b></td>
+<td>{booking_ref}</td>
+</tr>
 
-        <ul>
-            <li><strong>Company:</strong> {booking.company_name}</li>
-            <li><strong>ERP:</strong> {booking.erp_system}</li>
-            <li><strong>Documents:</strong> {", ".join(booking.documents_required)}</li>
-        </ul>
+<tr>
+<td><b>Company Name</b></td>
+<td>{booking.company_name}</td>
+</tr>
 
-        <h3>Demo Schedule</h3>
+<tr>
+<td><b>Email</b></td>
+<td>{booking.corporate_email}</td>
+</tr>
 
-        <p>
-            Date:
-            {booking.preferred_demo_date or "Not Scheduled"}
-        </p>
+<tr>
+<td><b>Mobile Number</b></td>
+<td>{booking.mobile_number}</td>
+</tr>
 
-        <p>
-            Time:
-            {booking.preferred_time_slot or "Not Scheduled"}
-        </p>
+<tr>
+<td><b>Documents Required</b></td>
+<td>{", ".join(booking.documents_required)}</td>
+</tr>
 
-        <p>
-            Our team will contact you shortly to confirm the next steps.
-        </p>
+<tr>
+<td><b>ERP System</b></td>
+<td>{booking.erp_system}</td>
+</tr>
 
-        <br>
+<tr>
+<td><b>Demo Date</b></td>
+<td>{booking.preferred_demo_date}</td>
+</tr>
 
-        <p>
-            Regards,<br>
-            Scanify AI Team<br>
-            Kodivian Technologies
-        </p>
+<tr>
+<td><b>Time Slot</b></td>
+<td>{booking.preferred_time_slot}</td>
+</tr>
 
-    </body>
-    </html>
-    """
+</table>
+
+<p>
+Our team will contact you shortly to confirm the demo schedule.
+</p>
+
+<p>
+Regards,<br>
+Kodivian Technologies<br>
+Scanify AI Team
+</p>
+
+</body>
+</html>
+"""
 
     send_email_brevo(
         booking.corporate_email,

@@ -2,13 +2,26 @@ import { useState } from "react";
 
 const API_URL =
   import.meta.env.VITE_API_URL ||
-  "http://localhost:8000";
+  "https://scanify-booking.onrender.com";
 
 export default function App() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
+
+  const INDUSTRIES = [
+  "Manufacturing",
+  "Retail",
+  "Healthcare",
+  "Logistics",
+  "Construction",
+  "Education",
+  "Banking",
+  "IT Services",
+  "Automotive",
+  "Other"
+];
 
   const [form, setForm] = useState({
     full_name: "",

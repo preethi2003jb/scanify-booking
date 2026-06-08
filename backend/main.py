@@ -333,7 +333,6 @@ def send_customer_acknowledgement(
 # ------------------------------------------------------------------
 # Create Booking API
 # ------------------------------------------------------------------
-
 @app.post("/api/book-demo")
 def book_demo(booking: DemoBooking):
 
@@ -345,29 +344,30 @@ def book_demo(booking: DemoBooking):
         cur = conn.cursor()
 
         # Check if slot already booked
-if booking.preferred_demo_date and booking.preferred_time_slot:
+        if booking.preferred_demo_date and booking.preferred_time_slot:
 
-    cur.execute(
-        """
-        SELECT COUNT(*)
-        FROM demo_bookings
-        WHERE preferred_demo_date = %s
-        AND preferred_time_slot = %s
-        """,
-        (
-            booking.preferred_demo_date,
-            booking.preferred_time_slot
-        )
-    )
+            cur.execute(
+                """
+                SELECT COUNT(*)
+                FROM demo_bookings
+                WHERE preferred_demo_date = %s
+                AND preferred_time_slot = %s
+                """,
+                (
+                    booking.preferred_demo_date,
+                    booking.preferred_time_slot
+                )
+            )
 
-    exists = cur.fetchone()[0]
+            exists = cur.fetchone()[0]
 
-    if exists > 0:
-        raise HTTPException(
-            status_code=422,
-            detail="Selected slot is already booked. Please choose another slot."
-        )
+            if exists > 0:
+                raise HTTPException(
+                    status_code=422,
+                    detail="Selected slot is already booked. Please choose another slot."
+                )
 
+        # Insert booking
         cur.execute(
             """
             INSERT INTO demo_bookings
@@ -432,7 +432,12 @@ if booking.preferred_demo_date and booking.preferred_time_slot:
 
     except Exception as e:
         print("Email Error:", e)
-        # ------------------------------------------------------------------
+
+    return {
+        "success": True,
+        "booking_reference": booking_ref
+    }
+# ------------------------------------------------------------------
 # Get All Bookings
 # ------------------------------------------------------------------
 

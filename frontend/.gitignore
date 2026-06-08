@@ -29,3 +29,11 @@ pnpm-debug.log*
 # OS Files
 .DS_Store
 Thumbs.dbgit status
+
+node_modules/
+frontend/node_modules/
+
+dist/
+frontend/dist/
+
+.env

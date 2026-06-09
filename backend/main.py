@@ -175,68 +175,40 @@ def send_internal_notification(
 ):
 
     html_content = f"""
-<html>
-<body>
+    <html>
+    <body>
 
-<h2>Thank You for Booking a Scanify AI Demo</h2>
+    <h2>New Scanify AI Demo Booking</h2>
 
-<p>Dear {booking.full_name},</p>
+    <p><b>Booking Reference:</b> {booking_ref}</p>
+    <p><b>Full Name:</b> {booking.full_name}</p>
+    <p><b>Designation:</b> {booking.designation}</p>
+    <p><b>Company:</b> {booking.company_name}</p>
+    <p><b>Email:</b> {booking.corporate_email}</p>
+    <p><b>Mobile:</b> {booking.mobile_number}</p>
+    <p><b>Documents:</b> {", ".join(booking.documents_required)}</p>
+    <p><b>ERP:</b> {booking.erp_system}</p>
+    <p><b>Current Process:</b> {booking.current_process}</p>
+    <p><b>Approval Workflow:</b> {booking.approval_workflow}</p>
+    <p><b>Volume:</b> {booking.document_volume}</p>
+    <p><b>Demo Date:</b> {booking.preferred_demo_date}</p>
+    <p><b>Time Slot:</b> {booking.preferred_time_slot}</p>
 
-<p>
-Thank you for your interest in Scanify AI.
-Your demo request has been successfully received.
-</p>
+    </body>
+    </html>
+    """
 
-<p>
-Our team will review your request and contact you shortly to confirm the demo schedule.
-</p>
+    for email in INTERNAL_EMAILS:
+        send_email_brevo(
+            email,
+            "Sales Team",
+            f"New Scanify AI Booking - {booking_ref}",
+            html_content
+        )
 
-<table border="1" cellpadding="8" cellspacing="0">
 
-<tr>
-<td><b>Booking Reference</b></td>
-<td>{booking_ref}</td>
-</tr>
-
-<tr>
-<td><b>Company Name</b></td>
-<td>{booking.company_name}</td>
-</tr>
-
-<tr>
-<td><b>Demo Date</b></td>
-<td>{booking.preferred_demo_date}</td>
-</tr>
-
-<tr>
-<td><b>Time Slot</b></td>
-<td>{booking.preferred_time_slot}</td>
-</tr>
-
-</table>
-
-<br>
-
-<p>
-Regards,<br>
-Kodivian Technologies<br>
-Scanify AI Team
-</p>
-
-</body>
-</html>
-"""
-
-for email in INTERNAL_EMAILS:
-    send_email_brevo(
-        email,
-        "Sales Team",
-        f"New Scanify AI Booking - {booking_ref}",
-        html_content
-    )
-
-# ------------------------------------------------------------------
-# Customer Email
+        # ------------------------------------------------------------------
+# Customer Acknowledgement Email
 # ------------------------------------------------------------------
 
 def send_customer_acknowledgement(
@@ -244,83 +216,72 @@ def send_customer_acknowledgement(
     booking_ref: str
 ):
 
-    if not booking.corporate_email:
-        return
-
     html_content = f"""
-<html>
-<body>
+    <html>
+    <body>
 
-<h2>Demo Booking Confirmed</h2>
+    <h2>Thank You for Booking a Scanify AI Demo</h2>
 
-<p>Dear {booking.full_name},</p>
+    <p>Dear {booking.full_name},</p>
 
-<p>Thank you for booking a Scanify AI demo.</p>
+    <p>Your demo request has been successfully received.</p>
 
-<table border="1" cellpadding="8" cellspacing="0">
+    <table border="1" cellpadding="8" cellspacing="0">
 
-<tr>
-<td><b>Booking Reference</b></td>
-<td>{booking_ref}</td>
-</tr>
+        <tr>
+            <td><b>Booking Reference</b></td>
+            <td>{booking_ref}</td>
+        </tr>
 
-<tr>
-<td><b>Company Name</b></td>
-<td>{booking.company_name}</td>
-</tr>
+        <tr>
+            <td><b>Company Name</b></td>
+            <td>{booking.company_name}</td>
+        </tr>
 
-<tr>
-<td><b>Email</b></td>
-<td>{booking.corporate_email}</td>
-</tr>
+        <tr>
+            <td><b>Email</b></td>
+            <td>{booking.corporate_email}</td>
+        </tr>
 
-<tr>
-<td><b>Mobile Number</b></td>
-<td>{booking.mobile_number}</td>
-</tr>
+        <tr>
+            <td><b>Mobile Number</b></td>
+            <td>{booking.mobile_number}</td>
+        </tr>
 
-<tr>
-<td><b>Documents Required</b></td>
-<td>{", ".join(booking.documents_required)}</td>
-</tr>
+        <tr>
+            <td><b>Demo Date</b></td>
+            <td>{booking.preferred_demo_date}</td>
+        </tr>
 
-<tr>
-<td><b>ERP System</b></td>
-<td>{booking.erp_system}</td>
-</tr>
+        <tr>
+            <td><b>Time Slot</b></td>
+            <td>{booking.preferred_time_slot}</td>
+        </tr>
 
-<tr>
-<td><b>Demo Date</b></td>
-<td>{booking.preferred_demo_date}</td>
-</tr>
+    </table>
 
-<tr>
-<td><b>Time Slot</b></td>
-<td>{booking.preferred_time_slot}</td>
-</tr>
+    <br>
 
-</table>
+    <p>
+    Our team will contact you shortly to confirm the demo schedule.
+    </p>
 
-<p>
-Our team will contact you shortly to confirm the demo schedule.
-</p>
+    <p>
+    Regards,<br>
+    Scanify AI Team<br>
+    Kodivian Technologies
+    </p>
 
-<p>
-Regards,<br>
-Kodivian Technologies<br>
-Scanify AI Team
-</p>
+    </body>
+    </html>
+    """
 
-</body>
-</html>
-"""
-
-send_email_brevo(
-    booking.corporate_email,
-    booking.full_name,
-    "Thank You for Booking a Scanify AI Demo",
-    html_content
-)
+    send_email_brevo(
+        booking.corporate_email,
+        booking.full_name,
+        "Thank You for Booking a Scanify AI Demo",
+        html_content
+    )
 
 # ------------------------------------------------------------------
 # Create Booking API

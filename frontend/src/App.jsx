@@ -261,7 +261,7 @@ export default function App() {
 
               {/* ROW: email full-width */}
               <div className="form-row col-1">
-                <Field label="Corporate Email" optional>
+                <Field label="Corporate Email" required>
                   <input className="inp" type="email" value={form.corporate_email}
                     onChange={e=>set("corporate_email",e.target.value)} placeholder="name@company.com"/>
                 </Field>

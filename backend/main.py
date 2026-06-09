@@ -257,12 +257,12 @@ def send_internal_notification(
 """
 
     for email in INTERNAL_EMAILS:
-        send_email_brevo(
-            email,
-            "Sales Team",
-            f"New Scanify AI Booking - {booking_ref}",
-            html
-        )
+send_email_brevo(
+    email,
+    "Sales Team",
+    f"New Scanify AI Booking - {booking_ref}",
+    html_content
+)
 
 # ------------------------------------------------------------------
 # Customer Email
@@ -344,12 +344,12 @@ Scanify AI Team
 </html>
 """
 
-    send_email_brevo(
-        booking.corporate_email,
-        booking.full_name,
-        "Scanify AI Demo Request Received",
-        html
-    )
+send_email_brevo(
+    booking.corporate_email,
+    booking.full_name,
+    "Scanify AI Demo Request Received",
+    html_content
+)
 
 # ------------------------------------------------------------------
 # Create Booking API

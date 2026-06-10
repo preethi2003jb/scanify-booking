@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const DOCUMENT_OPTIONS = ["Invoice", "Purchase Order", "GRN", "Receipt", "Vendor Invoice", "Delivery Challan"];
 const ERP_OPTIONS      = ["SAP", "Oracle", "Tally", "Microsoft Dynamics", "Zoho", "Other"];

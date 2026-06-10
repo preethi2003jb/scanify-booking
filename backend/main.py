@@ -1,3 +1,5 @@
+from urllib import response
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -112,7 +114,7 @@ class DemoBooking(BaseModel):
 # Brevo Configuration
 # ------------------------------------------------------------------
 
-SENDER_EMAIL = "noreply@kodivian.com"
+SENDER_EMAIL = "preethi.jb@kodivian.com"
 SENDER_NAME = "Kodivian Technologies"
 
 INTERNAL_EMAILS = [
@@ -163,6 +165,9 @@ def send_email_brevo(
         headers=headers
     )
 
+    print("BREVO STATUS:", response.status_code)
+    print("BREVO RESPONSE:", response.text)
+
     return response.status_code in [200, 201, 202]
 
 # ------------------------------------------------------------------
@@ -198,13 +203,14 @@ def send_internal_notification(
     </html>
     """
 
-    for email in INTERNAL_EMAILS:
-        send_email_brevo(
-            email,
-            "Sales Team",
-            f"New Scanify AI Booking - {booking_ref}",
-            html_content
-        )
+
+for email in INTERNAL_EMAILS:
+    send_email_brevo(
+        email,
+        "Sales Team",
+        f"New Scanify AI Booking - {booking_ref}",
+        html_content
+    )
 
 
         # ------------------------------------------------------------------
@@ -275,6 +281,7 @@ def send_customer_acknowledgement(
     </body>
     </html>
     """
+    
 
     send_email_brevo(
         booking.corporate_email,
@@ -376,6 +383,7 @@ def book_demo(booking: DemoBooking):
         send_internal_notification(
             booking,
             booking_ref
+            
         )
 
         send_customer_acknowledgement(

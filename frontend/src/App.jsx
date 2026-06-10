@@ -239,7 +239,7 @@ export default function App() {
               <div className="form-row col-2">
                 <Field label="Full Name" required>
                   <input className="inp" value={form.full_name}
-                    onChange={e=>set("full_name",e.target.value)} placeholder="e.g. Priya Sharma"/>
+                    onChange={e=>set("full_name",e.target.value)} placeholder="e.g. Kaviya Arivaratharaj"/>
                 </Field>
                 <Field label="Mobile Number" required>
                   <input className="inp" value={form.mobile_number}
@@ -251,7 +251,7 @@ export default function App() {
               <div className="form-row col-2">
                 <Field label="Company Name" required>
                   <input className="inp" value={form.company_name}
-                    onChange={e=>set("company_name",e.target.value)} placeholder="e.g. Meridian Logistics"/>
+                    onChange={e=>set("company_name",e.target.value)} placeholder="e.g. Kodivian Tetchnologies"/>
                 </Field>
                 <Field label="Designation" optional>
                   <input className="inp" value={form.designation}
@@ -263,7 +263,7 @@ export default function App() {
               <div className="form-row col-1">
                 <Field label="Corporate Email" required>
                   <input className="inp" type="email" value={form.corporate_email}
-                    onChange={e=>set("corporate_email",e.target.value)} placeholder="name@company.com"/>
+                    onChange={e=>set("corporate_email",e.target.value)} placeholder="name@Kodivian.com"/>
                 </Field>
               </div>
             </div>

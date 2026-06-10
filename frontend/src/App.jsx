@@ -122,22 +122,18 @@ export default function App() {
 
           {/* brand */}
           <div className="sb-brand">
-            <div className="sb-logo">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <rect x="2"  y="2"  width="8" height="8" rx="2" fill="white" opacity="1"/>
-                <rect x="12" y="2"  width="8" height="8" rx="2" fill="white" opacity="0.65"/>
-                <rect x="2"  y="12" width="8" height="8" rx="2" fill="white" opacity="0.65"/>
-                <rect x="12" y="12" width="8" height="8" rx="2" fill="white" opacity="0.35"/>
-              </svg>
-            </div>
-            <div>
+
+            <div>       
+
               <p className="sb-name">Scanify AI</p>
               <p className="sb-tagline">Enterprise Document Automation</p>
             </div>
           </div>
 
           {/* scanning animation panel */}
-          <div className="scan-panel">
+          
+  
+<div className="scan-panel">
             <div className="scan-doc">
               <div className="scan-line" />
               <div className="scan-row"><div className="scan-field wide"/></div>
@@ -197,6 +193,13 @@ export default function App() {
           {/* top: title + stepper */}
           <div className="fp-header">
             <div className="fp-title-row">
+               
+  <img
+    src="/Scanify-logo.png"
+    alt="Scanify AI"
+    className="demo-logo"
+  />
+
               <h1 className="fp-title">Book a Personalised Demo</h1>
               <p className="fp-sub">3 quick steps — we'll set up a session tailored to your workflow.</p>
             </div>

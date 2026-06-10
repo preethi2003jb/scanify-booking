@@ -204,13 +204,13 @@ def send_internal_notification(
     """
 
 
-for email in INTERNAL_EMAILS:
-    send_email_brevo(
-        email,
-        "Sales Team",
-        f"New Scanify AI Booking - {booking_ref}",
-        html_content
-    )
+    for email in INTERNAL_EMAILS:
+        send_email_brevo(
+            email,
+            "Sales Team",
+            f"New Scanify AI Booking - {booking_ref}",
+            html_content
+        )
 
 
         # ------------------------------------------------------------------
